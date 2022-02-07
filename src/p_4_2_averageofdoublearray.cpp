@@ -1,5 +1,7 @@
 #include "p_4_2_averageofdoublearray.h"
 
+#include <limits>
+
 #include <QLabel>
 #include <QSpinBox>
 #include <QDoubleSpinBox>
@@ -25,17 +27,33 @@ const QStringList    P_4_2_AverageOfDoubleArray::m_labels = {
 
 P_4_2_AverageOfDoubleArray::P_4_2_AverageOfDoubleArray(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("42");
-
                  m_what_to_do    = new QLabel(this);
                  m_array_length  = new QSpinBox(this);
                  m_array_length->setRange(1, 10);
 // дубль             m_array_length->setValue(5);
 
                  m_array_element = new QDoubleSpinBox(this);
+                 m_array_element->setDecimals(6);
                  m_array_element->setRange
-                         (std::numeric_limits<double>::min(),
+                         (1.0 - std::numeric_limits<double>::max(),
                           std::numeric_limits<double>::max());
+                /* Изначально в качестве нижней границы я пробовал
+                 * std::numeric_limits<double>::min() и
+                 * std::numeric_limits<double>::denorm_min(), но с этими
+                 * параметрами было невозможно ввести никакие отрицательные
+                 * значения.
+                 * std::numeric_limits<double>::min_exponent позволяло
+                 * ввести минимальное значение -1021,00
+                 * std::numeric_limits<double>::min_exponent10 вообще давало
+                 * возможность ввести минимум -307,00
+                 * qDebug для std::numeric_limits<double>::min()
+                 * выдал значение 2.22507e-308
+                 * Пробовал ввести его ручками в качестве нижней границы.
+                 * Нифига не сработало! Почему? Не знаю!
+                 * Возможно, какие-то ограничения QDoubleSpinBox, хотя в
+                 * документации ничего такого не нашел.
+                 * */
+
 // дубль           m_array_element->setValue(5.5);
 // дубль           m_array_element->hide();
 
@@ -58,7 +76,7 @@ P_4_2_AverageOfDoubleArray::P_4_2_AverageOfDoubleArray(QWidget *parent) : QWidge
     layout_main->addWidget(m_array_length);
     layout_main->addWidget(m_array_element);
     layout_main->addWidget(m_do);
-    layout_main->addWidget(m_info, 5, Qt::AlignTop);
+    layout_main->addWidget(m_info, 5);
     layout_main->addWidget(btn_reset);
 }
 
@@ -166,7 +184,7 @@ void    P_4_2_AverageOfDoubleArray::slotResetAllElements()
     m_array_length->setValue(5);
     m_array_length->show();
 
-    m_array_element->setValue(5.5);
+    m_array_element->setValue(5.555505);
     m_array_element->hide();
 
     // Мы не знаем, к какому сигналу была подключена кнопка m_do

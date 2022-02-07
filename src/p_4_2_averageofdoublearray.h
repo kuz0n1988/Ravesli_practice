@@ -42,7 +42,6 @@ public:
 private slots:
     void    slotGetArrayLength();
     void    slotGetArrayElements();
-
     void    slotResetAllElements();
 };
 
