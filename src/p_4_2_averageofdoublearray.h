@@ -35,8 +35,12 @@ public:
     static double getArrayMin    (const std::vector<double>&);
     static double getArrayMax    (const std::vector<double>&);
 */
+
+    // превращает значения массива в аккуратную колонку QString
     const QString       getAarrayElementsColumn();
-    double              getArrayAverage(const std::vector<double> &array);
+
+    // Возвращает среднее арифметическое элементов массива
+    static double       getArrayAverage(const std::vector<double> &array);
     void                showResult();
 
 private slots:

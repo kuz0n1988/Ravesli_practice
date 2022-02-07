@@ -5,6 +5,8 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 
+#include "makinghtmllink.h"
+
 P_3_2_PositiveEvenIntSum::P_3_2_PositiveEvenIntSum(QWidget *parent) : QWidget(parent)
 {
     setObjectName("32");
@@ -29,6 +31,7 @@ P_3_2_PositiveEvenIntSum::P_3_2_PositiveEvenIntSum(QWidget *parent) : QWidget(pa
                      layout_main->addWidget(spb_enter_number);
                      layout_main->addWidget(lbl_result);
                      layout_main->addWidget(m_result, 1, Qt::AlignTop);
+                     layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
 
     slotGetSum(spb_enter_number->value());
 }

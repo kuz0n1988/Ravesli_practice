@@ -29,7 +29,7 @@ private:
 
     // ===== ПЕРЕМЕННЫЕ =====
 
-    unsigned int m_counter;                                      // Счётчик попыток
+    unsigned int m_counter;                         // Счётчик попыток
     std::array<int, ARRAY_LENGTH> m_random_digits;  // Три случайные цифры
 
     // Элементы интерфейса

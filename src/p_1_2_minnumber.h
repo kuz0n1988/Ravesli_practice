@@ -20,7 +20,7 @@ private:
     std::vector<unsigned int>   m_array;        // массив со значениями
     unsigned int                m_counter = 0;  // счётчик ввода элементов в массив
 
-    static const QList<QString>           m_label_names;  // список названий, элементов управления
+    static const QList<QString> m_label_names;  // список названий, элементов управления
 
     // Элементы управления
     QLabel      *lbl_what_to_do;    // Надпись, которая говорит, что делать

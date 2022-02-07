@@ -17,6 +17,8 @@
 
 #include <QDebug>
 
+#include "makinghtmllink.h"
+
 /* ======== НЕМНОГО О МАГИИ КЛАССА QValidator ========
  * Очень хочтелось опробовать, как работает валидатор в Qt
  * Три часа возни к RegExp (потому что я всё ещё плохо
@@ -93,6 +95,7 @@ P_3_3_MorseCode::P_3_3_MorseCode(QWidget *parent) : QWidget(parent)
                  layout_main->addWidget(led_input);
                  layout_main->addWidget(m_morse, 5, Qt::AlignTop);
                  layout_main->addWidget(pbt_beep);
+                 layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
 }
 
 std::string P_3_3_MorseCode::getMorseCode(const std::wstring &source)

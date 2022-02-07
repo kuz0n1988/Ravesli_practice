@@ -23,6 +23,7 @@ SOURCES += \
     p_3_3_morsecode.cpp \
     p_4_1_versta.cpp \
     p_4_2_averageofdoublearray.cpp \
+    p_4_3_arrayconcatenator.cpp \
     practice.cpp
 
 HEADERS += \
@@ -39,6 +40,7 @@ HEADERS += \
     p_3_3_morsecode.h \
     p_4_1_versta.h \
     p_4_2_averageofdoublearray.h \
+    p_4_3_arrayconcatenator.h \
     practice.h
 
 # Default rules for deployment.

@@ -11,6 +11,8 @@
 
 #include <QDebug>
 
+#include "makinghtmllink.h"
+
 const QStringList    P_4_2_AverageOfDoubleArray::m_labels = {
     "Введите количество чисел:",                                                    // 0 m_what_to_do
     "Введите элемент №%1",                                                          // 1 m_what_to_do
@@ -27,6 +29,8 @@ const QStringList    P_4_2_AverageOfDoubleArray::m_labels = {
 
 P_4_2_AverageOfDoubleArray::P_4_2_AverageOfDoubleArray(QWidget *parent) : QWidget(parent)
 {
+    setObjectName("42");
+
                  m_what_to_do    = new QLabel(this);
                  m_array_length  = new QSpinBox(this);
                  m_array_length->setRange(1, 10);
@@ -78,6 +82,7 @@ P_4_2_AverageOfDoubleArray::P_4_2_AverageOfDoubleArray(QWidget *parent) : QWidge
     layout_main->addWidget(m_do);
     layout_main->addWidget(m_info, 5);
     layout_main->addWidget(btn_reset);
+    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
 }
 
 // ====================МЕТОДЫ===================
@@ -90,7 +95,7 @@ const QString P_4_2_AverageOfDoubleArray::getAarrayElementsColumn()
     {
          temp += "Элемент № " +
                  QString::number(i+1) + ":\t" +
-                 QString::number(m_array.at(i), 'f', 4) + '\n';
+                 QString::number(m_array.at(i), 'f', 6) + '\n';
     }
 
     return temp;

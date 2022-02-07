@@ -16,6 +16,7 @@
 
 #include "p_4_1_versta.h"               // Преобразовывает километры в вёрсты
 #include "p_4_2_averageofdoublearray.h" // Среднее значение элементов ряда чисел
+#include "p_4_3_arrayconcatenator.h"    // Соединитель сортированных массивов
 
 Practice::Practice(QWidget *parent)
     : QWidget(parent)
@@ -164,6 +165,11 @@ void Practice::initializeMap()
     // 4.2. Рассчитывает среднее арифметическое значение элементов массива
     index   = m_main_widget->addWidget(new P_4_2_AverageOfDoubleArray (this));
     widget_key      = makeKey(4, 2);
+    m_index_of_widgets.insert(widget_key, index);
+
+    // 4.3  Соединяет два упорядоченных массива в один
+    index   = m_main_widget->addWidget(new P_4_3_ArrayConcatenator (this));
+    widget_key      = makeKey(4, 3);
     m_index_of_widgets.insert(widget_key, index);
 
     // Сразу ставим на последний элемент

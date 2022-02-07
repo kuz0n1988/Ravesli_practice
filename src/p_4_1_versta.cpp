@@ -5,6 +5,8 @@
 #include <QLineEdit>
 #include <QGridLayout>
 
+#include "makinghtmllink.h"
+
 P_4_1_versta::P_4_1_versta(QWidget *parent) : QWidget(parent)
 {
     setObjectName("41");
@@ -26,6 +28,8 @@ P_4_1_versta::P_4_1_versta(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(spd_distance_km, 0, 1);
     layout_main->addWidget(lbl_distance_v,  1, 0);
     layout_main->addWidget(m_result,        1, 1);
+    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this),
+                                            2, 0, 1, 2, Qt::AlignBottom);
 
     slotShowVerst(spd_distance_km->value());
 }

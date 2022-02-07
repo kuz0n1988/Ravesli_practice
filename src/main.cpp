@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 //    qInstallMessageHandler(LogFile::messageToFile); // крепим логгирование в файл
+// Научился смотреть во вкладку "Вывод приложения" в Qt-creator
+// Для такого маленького проекта этот метод оказался намного удобнее
 
     Practice w;
     w.setWindowTitle("Ravesli.com - практические задания по C++");

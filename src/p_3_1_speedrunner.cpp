@@ -10,6 +10,8 @@
 
 #include <QDebug>
 
+#include "makinghtmllink.h"
+
 P_3_1_SpeedRunner::P_3_1_SpeedRunner(QWidget *parent) : QWidget(parent)
 {
     setObjectName("31");
@@ -41,6 +43,8 @@ P_3_1_SpeedRunner::P_3_1_SpeedRunner(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(m_time,          1, 1);
     layout_main->addWidget(result_title,    2, 0);
     layout_main->addWidget(m_result,        2, 1);
+    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this),
+                                            3, 0, 1, 2, Qt::AlignBottom);
 
     slotCalculateSpeedRunner();
 }
