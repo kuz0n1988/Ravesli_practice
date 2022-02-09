@@ -1,8 +1,39 @@
 #include "p_4_3_arrayconcatenator.h"
 
 #include <QtWidgets>
+#include <QLabel>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QPlainTextEdit>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "makinghtmllink.h"
+
+std::vector<int> P_4_3_ArrayConcatenator::putNumbersToArray(const QVBoxLayout* layout)
+{
+    /*  ========== ПРИМЕЧАНИЕ ==========
+     * хотел использовать QLayoutIterator,
+     * но он оказывается устаревший :(
+     * */
+
+    qDebug() << "Start putting";
+    std::vector<int> temp;
+
+    QSpinBox *tmp_spb;
+    for(int i = layout->count(); i < layout->count(); i++)
+    {
+        /* По идее, тут должна быть проверка типа и при невозможности
+         * конвертации выбрасывать исключение
+         * */
+        qDebug() << "Iteration " << i;
+        tmp_spb = (QSpinBox*)(layout->itemAt(i)->widget());    // Явное преобразование
+        temp.push_back(tmp_spb->value());
+    }
+    return temp;
+    qDebug() << "Finish putting";
+}
 
 P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(parent)
 {
@@ -10,16 +41,18 @@ P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(pare
 
     // Имена этих объектов придумывал "от балды".
     // Не стоит так делать.
-    QLabel          *lbl_1  = new QLabel("Массив #1", this);
-    QLabel          *lbl_11  = new QLabel("Длина: ", this);
-    QSpinBox        *spb_1  = new QSpinBox(this);
+    QLabel          *lbl_1      = new QLabel("Массив #1", this);
+    QLabel          *lbl_11     = new QLabel("Длина: ", this);
+    QSpinBox        *spb_1      = new QSpinBox(this);
                      spb_1->setRange(1, 10);
                      spb_1->setObjectName("spb_1");
-    QLabel          *lbl_2  = new QLabel("Массив #2", this);
-    QLabel          *lbl_21  = new QLabel("Длина: ", this);
-    QSpinBox        *spb_2  = new QSpinBox(this);
+    QLabel          *lbl_2      = new QLabel("Массив #2", this);
+    QLabel          *lbl_21     = new QLabel("Длина: ", this);
+    QSpinBox        *spb_2      = new QSpinBox(this);
                      spb_2->setRange(1, 10);
                      spb_2->setObjectName("spb_2");
+    QPushButton     *pbt_1      = new QPushButton("Отсортировать/Соединить", this);
+                     m_result   = new QPlainTextEdit(this);
 
 /*  Хотел реализовать ввод массивов через QTableWidget, но не разобрался, как
  *  ограничить тип вводимых данных исключительно числовыми значениями.
@@ -40,6 +73,7 @@ P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(pare
                      layout_top->addWidget(spb_1, 1, 1);
                      layout_top->addWidget(lbl_21, 1, 2);
                      layout_top->addWidget(spb_2, 1, 3);
+                     layout_top->addWidget(pbt_1, 2, 0, 1, 4);
 
     /*QVBoxLayout*/  m_layout_left    = new QVBoxLayout();
     /*QVBoxLayout*/  m_layout_right   = new QVBoxLayout();
@@ -69,7 +103,14 @@ P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(pare
                      layout_main->addLayout(layout_top, 0);
                      layout_main->addLayout(layout_arrays, 1);
 //                     layout_main->addStretch(2);
+                     layout_main->addWidget(m_result, 1, Qt::AlignBottom);
                      layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
+
+    //  ==========ТЕСТ==========
+    m_arr1 = putNumbersToArray(m_layout_left);
+    m_arr2 = putNumbersToArray(m_layout_right);
+
+    qDebug () << m_arr1 << Qt::endl << m_arr2;
 }
 
 void P_4_3_ArrayConcatenator::slotChangeArrayLength(int new_rows)
