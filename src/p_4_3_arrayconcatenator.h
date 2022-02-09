@@ -24,17 +24,25 @@ private:
 private:
     // вытягивает значения из SpinBox-ов, лежащих в QVBoxLayout
     // после чего пихает их в вектор
-    std::vector<int>    putNumbersToArray(const QVBoxLayout*);
+    std::vector<int>    putNumbersToArray   (const QVBoxLayout*);
 
-//    QString vectorToQString (const std::vector<int> arr);
+    // достаёт значения из вектора и пихает обратно в SpinBox-ы
+    void getNumbersFromArray (QVBoxLayout*, const std::vector<int>&);
+
+    // Превращает значения вектора в оформленную строку
+    QString vectorToQString (const std::vector<int> &arr);
+
 public:
     explicit P_4_3_ArrayConcatenator(QWidget *parent = nullptr);
-/*    std::vector<int>    concatenateArrays(const std::vector<int> &arr1,
-                                          const std::vector<int> &arr2);*/
+
+    // Соединяет ОТСОРТИРОВАННЫЕ массивы (собственно, это цель задачи)
+    static std::vector<int> concatenateSortedArrays
+            (const std::vector<int> &arr1,
+             const std::vector<int> &arr2);
 
 private slots:
     void    slotChangeArrayLength(int);
-//    void    sortAndConcatenate();
+    void    sortAndConcatenate();
 };
 
 #endif // P_4_3_ARRAYCONCATENATOR_H

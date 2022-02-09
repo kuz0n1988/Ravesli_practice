@@ -84,8 +84,6 @@ void Practice::initializeMap()
     int      index;
     int      widget_key;
     QString  widget_name;
-//    QWidget *test_widget;
-    //test
 
     // ==============================ЧАСТЬ 1==============================
 
@@ -95,19 +93,6 @@ void Practice::initializeMap()
     widget_name     = QString::number(widget_key);
     m_main_widget->widget(index)->setObjectName(widget_name);
     m_index_of_widgets.insert(widget_key, index);
-
-/*
-    qDebug () << "Trace:\n"
-              << "index:       " << index
-              << "widget_key:  " << widget_key
-              << "widget_name: " << widget_name; */
-/*
-    qDebug() << " Element " << widget_key
-             << " with name " << m_main_widget->widget(index)->objectName()
-             << " created! ";
-    qDebug() << "Map elements: key - "
-             << m_index_of_widgets.lastKey()
-             << " index - " << m_index_of_widgets[widget_key]; */
 
     // 1.2. Задачка на поиск минимального числа
     index   = m_main_widget->addWidget(new P_1_2_MinNumber(this));
@@ -175,9 +160,6 @@ void Practice::initializeMap()
     // Сразу ставим на последний элемент
     m_part = widget_key/10;
     m_task = widget_key%10;
-    qDebug()    << "Tracing!\n"
-                << "   m_part: " << m_part
-                << "   m_task: " << m_task;
 
     /* Алгоритм выбора виджета проверен. Заглушки больше не нужны
     // Клепаем заглушки для проверки алгоритма

@@ -278,5 +278,3 @@ void P_3_3_MorseCode::slotBeepTheMorse()
             */
     }
 }
-
-
