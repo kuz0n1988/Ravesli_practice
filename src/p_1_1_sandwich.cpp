@@ -9,18 +9,10 @@
 
 P_1_1_Sandwich::P_1_1_Sandwich(QWidget *parent) : QWidget(parent)
 {
-
-    qDebug() << "Object " << objectName() << " constructing...";
-
     QLabel  *lbl_input      = new QLabel    ("Введите сэндвич:", this);
              led_input      = new QLineEdit ("Введите сэндвич сюда", this);
              lbl_result     = new QLabel    ("Здесь будет отображаться результат", this);
              lbl_result->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
-    QLabel  *lbl_html_page  = new QLabel
-            ("<a href=\"https://ravesli.com/praktika-chast-1/\">"
-             "<div>Страница на Ravesli.com</div>"
-             "<div>Часть №1: Практические задания по С++</div></a>");
-             lbl_html_page->setOpenExternalLinks(true);
 
     connect(led_input, &QLineEdit::textEdited, this, &P_1_1_Sandwich::checkTheSandwich);
 
@@ -28,10 +20,6 @@ P_1_1_Sandwich::P_1_1_Sandwich(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(lbl_input);
     layout_main->addWidget(led_input,  1, Qt::AlignTop);
     layout_main->addWidget(lbl_result, 5);
-    //layout_main->addStretch(5);
-    layout_main->addWidget(lbl_html_page);
-
-    qDebug() << "Object " << objectName() << " constructed!";
 }
 
 bool P_1_1_Sandwich::isMirror(const std::wstring &str)

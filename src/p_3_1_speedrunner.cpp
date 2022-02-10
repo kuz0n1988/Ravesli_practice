@@ -1,6 +1,5 @@
 #include "p_3_1_speedrunner.h"
 
-
 #include <QLabel>
 #include <QSpinBox>
 #include <QDateTime>
@@ -10,12 +9,10 @@
 
 #include <QDebug>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 P_3_1_SpeedRunner::P_3_1_SpeedRunner(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("31");
-
     QLabel          *distance_title = new QLabel("Введите дистанцию (метров): ", this);
     /*QSpinBox*/     m_distance     = new QSpinBox(this);
                      m_distance->setRange   (0, 50000);
@@ -41,10 +38,8 @@ P_3_1_SpeedRunner::P_3_1_SpeedRunner(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(m_distance,      0, 1);
     layout_main->addWidget(time_title,      1, 0);
     layout_main->addWidget(m_time,          1, 1);
-    layout_main->addWidget(result_title,    2, 0);
-    layout_main->addWidget(m_result,        2, 1);
-    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this),
-                                            3, 0, 1, 2, Qt::AlignBottom);
+    layout_main->addWidget(result_title,    2, 0, Qt::AlignTop);
+    layout_main->addWidget(m_result,        2, 1, Qt::AlignTop);
 
     slotCalculateSpeedRunner();
 }

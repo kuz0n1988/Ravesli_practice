@@ -5,12 +5,10 @@
 #include <QLineEdit>
 #include <QGridLayout>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 P_4_1_versta::P_4_1_versta(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("41");
-
     QLabel          *lbl_distance_km    = new QLabel("Введите расстояние в километрах:", this);
     QDoubleSpinBox  *spd_distance_km    = new QDoubleSpinBox(this);
                      spd_distance_km->setRange(0, std::numeric_limits<double>::max());
@@ -26,10 +24,8 @@ P_4_1_versta::P_4_1_versta(QWidget *parent) : QWidget(parent)
     QGridLayout     *layout_main        = new QGridLayout(this);
     layout_main->addWidget(lbl_distance_km, 0, 0);
     layout_main->addWidget(spd_distance_km, 0, 1);
-    layout_main->addWidget(lbl_distance_v,  1, 0);
-    layout_main->addWidget(m_result,        1, 1);
-    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this),
-                                            2, 0, 1, 2, Qt::AlignBottom);
+    layout_main->addWidget(lbl_distance_v,  1, 0, Qt::AlignTop);
+    layout_main->addWidget(m_result,        1, 1, Qt::AlignTop);
 
     slotShowVerst(spd_distance_km->value());
 }

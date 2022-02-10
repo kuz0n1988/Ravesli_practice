@@ -7,12 +7,10 @@
 
 #include <QDebug>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 P_2_1_dacha::P_2_1_dacha(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("21");
-
     QLabel  *lbl_distance       = new QLabel("Расстояние до дачи в один конец (км):", this);
              m_distance         = new QDoubleSpinBox(this);
              m_distance->setValue(67);
@@ -51,7 +49,6 @@ P_2_1_dacha::P_2_1_dacha(QWidget *parent) : QWidget(parent)
                  layout_main->addWidget(lbl_fuelPrice,      2, 0);
                  layout_main->addWidget(m_fuel_price,       2, 1);
                  layout_main->addWidget(m_result,           3, 0, 1, 2, Qt::AlignTop);
-                 layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 4, 0, 1, 2, Qt::AlignBottom);
 
     slotShowTravelCost();
 }

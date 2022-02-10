@@ -22,19 +22,45 @@
  *
  * Правда сам алгоритм оказался рабочий,
  * выкидывать жалко. Пусть работает!
- * ======================================== */
+ * ========================================
+ * 10.02.22
+ * Мне сегодня снилась дичайшая хрень
+ * про каких-то казашек. А когда я проснулся,
+ * то подумал: зачем встраивать ссылку
+ * непосредственно в виджет, если можно показывать
+ * её в главном окне? А при смене виджета
+ * можно просто менять содержимое. И даже возня с
+ * ObjectName отпадёт! Можно будет просто передавать
+ * int с номером активной части.
+ * А подумав ещё немного дошло, что можно вообще
+ * сделать его потомком QLabel и добавить слот
+ * на смену адреса.
+ * Заодно разберусь, как ветки в гитхабе работают
+ */
+
+#include <QLabel>
 
 class QWidget;
 class QString;
-class QLabel;
 
-class MakingHtmlLink
+class MakingHtmlLink : public QLabel
 {
+    Q_OBJECT
 private:
     static const QString m_pattern_name;
     static const QString m_pattern_link;
     static const QString m_pattern_html;
 public:
+    explicit MakingHtmlLink(const int &index=0, QWidget *parent = nullptr);
+    explicit MakingHtmlLink(QWidget *parent = nullptr);
+
+    static QString getMyHtmlLink (const int &index);
+public slots:
+    void slotChangeHtmlLink(const int &index);
+
+/* =================================================
+ * ============= РАНЬШЕ БЫЛО ВСЁ ИНАЧЕ =============
+ * =================================================
     static QString getMyHtmlLink (QWidget *obj);
     // Возвращает HTML-код со ссылкой в QString
     // сформированный на основе имени объекта
@@ -43,6 +69,7 @@ public:
     // Делает тоже самое, но ещё пихает QString в
     // виджет QLabel и автоматически присваивает
     // ему setOpenExternalLinks(true)
+    */
 };
 
 #endif // MAKINGHTMLLINK_H
