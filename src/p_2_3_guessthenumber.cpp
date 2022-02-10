@@ -12,7 +12,7 @@
 
 #include <QDebug>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 // ===================ПЕРЕЧИСЛЕНИЯ===================
 
@@ -61,15 +61,12 @@ const QStringList P_2_3_GuessTheNumber::M_LABELS_RESLT =
 
 P_2_3_GuessTheNumber::P_2_3_GuessTheNumber(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("23");
-
     m_lbl_title     = new QLabel(this);
     m_spb_variant   = new QSpinBox(this);
     m_spb_variant->setRange(0, 999);
     m_pbt_button    = new QPushButton(this);
     m_lbl_result    = new QPlainTextEdit(this);
     m_lbl_result->setReadOnly(true);
-//    m_lbl_result->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
 
     /* Изначально пытался запихнуть QLabel в QScrollArea и безуспешно
      * пытался понять, почему же его так "скукоживает"
@@ -77,9 +74,6 @@ P_2_3_GuessTheNumber::P_2_3_GuessTheNumber(QWidget *parent) : QWidget(parent)
      * является потомком  QAbstractScrollArea, так что просто поменял
      * тип объекта на него и чуть-чуть переписал код
      * */
-/*    QScrollArea *scrl = new QScrollArea(this);
-    scrl->setWidget(m_lbl_result);
-    scrl->setFixedSize(450, 300);*/
 
     slotReset();
 
@@ -88,7 +82,7 @@ P_2_3_GuessTheNumber::P_2_3_GuessTheNumber(QWidget *parent) : QWidget(parent)
                  layout_main->addWidget(m_spb_variant);
                  layout_main->addWidget(m_pbt_button);
                  layout_main->addWidget(m_lbl_result, 5);
-                 layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
+//                 layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
 }
 
 // ======================МЕТОДЫ======================
@@ -99,9 +93,7 @@ std::vector<int> P_2_3_GuessTheNumber::onlyUniqueDigits(const std::array<int, AR
     // но в STL-бибилиотеке для std::array и std::vector уже всё реализовано
 
     std::vector<int> temp (arr.begin(), arr.end());
-    qDebug () << temp;
     std::sort(temp.begin(), temp.end());
-    qDebug () << temp;
     temp.resize(std::unique(temp.begin(), temp.end()) - temp.begin());
     // не до конца понял принцип использования unique через resize
 

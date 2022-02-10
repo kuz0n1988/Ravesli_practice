@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QGridLayout>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 const QStringList P_2_2_Discount::m_labels =
         { "Суммы покупки недостаточно для предоставления скидки",   // 0
@@ -15,8 +15,6 @@ const QStringList P_2_2_Discount::m_labels =
 
 P_2_2_Discount::P_2_2_Discount(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("22");
-
     QLabel          *lbl_enter_sum      = new QLabel("Введите сумму покупки:", this);
     QDoubleSpinBox  *spb_enter_sum      = new QDoubleSpinBox(this);
                      spb_enter_sum->setRange(0.0, std::numeric_limits<double>::max());
@@ -31,9 +29,8 @@ P_2_2_Discount::P_2_2_Discount(QWidget *parent) : QWidget(parent)
     QGridLayout     *layout_main        = new QGridLayout(this);
                      layout_main->addWidget(lbl_enter_sum,      0, 0);
                      layout_main->addWidget(spb_enter_sum,      0, 1);
-                     layout_main->addWidget(m_discount,         1, 0, 1, 2);
-                     layout_main->addWidget(m_discount_result,  2, 0, 1, 2, Qt::AlignTop); // не хочет пихать всех наверх почему-то
-                     layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this),  4, 0, 1, 2, Qt::AlignBottom);
+                     layout_main->addWidget(m_discount,         1, 0, 1, 2, Qt::AlignTop);
+                     layout_main->addWidget(m_discount_result,  2, 0, 1, 2, Qt::AlignTop);
 
     slotCalculateDiscount(spb_enter_sum->value());
 }

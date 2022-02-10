@@ -33,19 +33,11 @@ const QList<QString> P_1_2_MinNumber::m_label_names
 
 P_1_2_MinNumber::P_1_2_MinNumber(QWidget *parent) : QWidget(parent)
 {
-    qDebug() << "Object " << objectName() << " constructing...";
-
     lbl_what_to_do  = new QLabel        (m_label_names[WHATTD_ARRAYSIZE], this);   // Что делать
     spb_number      = new QSpinBox      (this);                                    // Поле для ввода числа
     spb_number->    setRange(LENGTH_MIN, LENGTH_MAX);
     pbt_step        = new QPushButton   (m_label_names[BUTTON_ARRAYSIZE], this);   // Кнопка действия
     lbl_result      = new QLabel        (m_label_names[RESULT_ARRAYSIZE], this);   // Информационное поле и вывод результата
-
-    QLabel  *lbl_html_page  = new QLabel
-            ("<a href=\"https://ravesli.com/praktika-chast-1/\">"
-             "<div>Страница на Ravesli.com</div>"
-             "<div>Часть №1: Практические задания по С++</div></a>");
-             lbl_html_page->setOpenExternalLinks(true);
 
     // Подключаем кнопку к сигналу: указать размер массива
     connect(pbt_step, SIGNAL(clicked()), this, SLOT(slot_setNewArraySize()));
@@ -57,7 +49,6 @@ P_1_2_MinNumber::P_1_2_MinNumber(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(spb_number,     0);
     layout_main->addWidget(pbt_step,       0);
     layout_main->addWidget(lbl_result,     5, Qt::AlignTop);
-    layout_main->addWidget(lbl_html_page);
 }
 
 

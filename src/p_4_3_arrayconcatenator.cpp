@@ -9,7 +9,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 // ==================== PRIVATE ====================
 
@@ -65,8 +65,6 @@ QString P_4_3_ArrayConcatenator::vectorToQString (const std::vector<int> &arr)
 
 P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("43");
-
     // Имена этих объектов придумывал "от балды".
     // Не стоит так делать.
     QLabel          *lbl_1      = new QLabel("Массив #1", this);
@@ -88,14 +86,7 @@ P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(pare
 /*  Хотел реализовать ввод массивов через QTableWidget, но не разобрался, как
  *  ограничить тип вводимых данных исключительно числовыми значениями.
  *  По этому решил: буду корячиться с динамическими объектами типа QSpinBox
-    QTableWidget    *qtw_1  = new QTableWidget(5, 1, this);
-    qtw_1->setHorizontalHeaderLabels({"Первый ряд"});
-    QTableWidget    *qtw_2  = new QTableWidget(5, 1, this);
-    qtw_2->setHorizontalHeaderLabels({"Второй ряд"});
     */
-
-    // Вот тут я хотел напрямую соединить сигнал QSPinBox::valueChanged
-    // с QTableWidget::setColumnCount, но последний оказалось не слот!
 
     QGridLayout     *layout_top     = new QGridLayout();
                      layout_top->addWidget(lbl_1, 0, 0, 1, 2);
@@ -135,7 +126,7 @@ P_4_3_ArrayConcatenator::P_4_3_ArrayConcatenator(QWidget *parent) : QWidget(pare
                      layout_main->addLayout(layout_top, 0);
                      layout_main->addLayout(layout_arrays, 1);
                      layout_main->addWidget(m_result, 2);
-                     layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 0, Qt::AlignBottom);
+//                     layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 0, Qt::AlignBottom);
 
 }
 

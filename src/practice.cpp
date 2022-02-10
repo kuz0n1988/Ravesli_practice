@@ -1,6 +1,14 @@
 #include "practice.h"
 
-#include <QtWidgets>
+//#include <QtWidgets>
+#include <QStackedWidget>
+#include <QLabel>
+#include <QSpinBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QDebug>
+
+#include "makinghtmllink.h"
 
 #include "p_1_1_sandwich.h"             // Cэндвич с мороженным
 #include "p_1_2_minnumber.h"            // Поиск минимального числа
@@ -18,6 +26,7 @@
 #include "p_4_2_averageofdoublearray.h" // Среднее значение элементов ряда чисел
 #include "p_4_3_arrayconcatenator.h"    // Соединитель сортированных массивов
 
+
 Practice::Practice(QWidget *parent)
     : QWidget(parent)
 {
@@ -26,15 +35,16 @@ Practice::Practice(QWidget *parent)
     qDebug () << "================================================================";
 
     // Левая половина
-    m_main_widget   = new QStackedWidget(this);
+    m_main_widget                   = new QStackedWidget(this);
     m_main_widget->setFrameStyle(QFrame::Box | QFrame::Raised);
     m_main_widget->setLineWidth(2);
 
+
     initializeMap();        // Инициализируем m_main_widget и m_index_of_widget
-    slot_changeWidget();    // Сразу ставим последний виджет
+    slot_changeWidget();    // Сразу ставим последний виджет...
+    MakingHtmlLink *lbl_html_link    = new MakingHtmlLink(m_part, this); //...и создаём ссылку
 
     // Правая половина
-
     // ===Блок выбора части
     QLabel      *lbl_select_part    = new QLabel("Выберите &часть:", this);
     QSpinBox    *spb_select_part    = new QSpinBox(this);
@@ -42,6 +52,9 @@ Practice::Practice(QWidget *parent)
     spb_select_part->setRange(1, MAX_PARTS);
     spb_select_part->setValue(m_part);  // Сразу ставим на последний элемент
     connect(spb_select_part, SIGNAL(valueChanged(int)), SLOT(slot_changePart(int)));
+    connect(spb_select_part, SIGNAL(valueChanged(int)), SLOT(slot_changeWidget()));
+    connect(spb_select_part, SIGNAL(valueChanged(int)),
+            lbl_html_link,   SLOT(slotChangeHtmlLink(int)));
 
     // ===Блок выбора задачи
     QLabel      *lbl_select_task    = new QLabel("Выберите &задание:", this);
@@ -50,25 +63,24 @@ Practice::Practice(QWidget *parent)
     spb_select_task->setRange(1, MAX_TASKS);
     spb_select_task->setValue(m_task);  // Сразу ставим на последний элемент
     connect(spb_select_task, SIGNAL(valueChanged(int)), SLOT(slot_changeTask(int)));
+    connect(spb_select_task, SIGNAL(valueChanged(int)), SLOT(slot_changeWidget()));
 
-    // ===Кнопка "Выбрать"
-    QPushButton *btn_select         = new QPushButton("&Выбрать", this);
-    connect(btn_select,             &QPushButton::clicked,
-            this,                   &Practice::slot_changeWidget);
+    // Компоновка
+    // ===Компонуем левую половину
+    QVBoxLayout *left_layout        = new QVBoxLayout();
+    left_layout->addWidget(m_main_widget, 2);
+    left_layout->addWidget(lbl_html_link, 0, Qt::AlignBottom);
 
-    // Компонуем правую половину
-    QVBoxLayout *right_layout          = new QVBoxLayout();
+    // ===Компонуем правую половину
+    QVBoxLayout *right_layout       = new QVBoxLayout();
     right_layout->addWidget(lbl_select_part,   0, Qt::AlignTop);
     right_layout->addWidget(spb_select_part,   0, Qt::AlignTop);
     right_layout->addWidget(lbl_select_task,   0, Qt::AlignTop);
-    right_layout->addWidget(spb_select_task,   0, Qt::AlignTop);
-    right_layout->addWidget(btn_select,        1, Qt::AlignTop);
-//    box_right->addStretch(5);   /* Без этого не получалось запихать их все наверх.
-//                                 * Растягивались по всему окну, твари */
+    right_layout->addWidget(spb_select_task,   1, Qt::AlignTop);
 
-    // Компонуем лево и право
+    // ===Компонуем лево и право
     QHBoxLayout *box_main           = new QHBoxLayout(this);
-    box_main->addWidget(m_main_widget, 1);
+    box_main->addLayout(left_layout, 1);
     box_main->addLayout(right_layout, 0);
 }
 
@@ -80,25 +92,20 @@ void Practice::initializeMap()
 {
     // Добавляем по-порядку задачки в виджет и в карту ключей
 
-    // Набор переменных (пока что избыточный) для добавления виджетов
+    // Набор переменных (уже не совсем избыточный) для добавления виджетов
     int      index;
     int      widget_key;
-    QString  widget_name;
 
     // ==============================ЧАСТЬ 1==============================
 
     // 1.1. Задачка про сэндвич с мороженным
     index   = m_main_widget->addWidget(new P_1_1_Sandwich(this));
     widget_key      = makeKey(1, 1);
-    widget_name     = QString::number(widget_key);
-    m_main_widget->widget(index)->setObjectName(widget_name);
     m_index_of_widgets.insert(widget_key, index);
 
     // 1.2. Задачка на поиск минимального числа
     index   = m_main_widget->addWidget(new P_1_2_MinNumber(this));
     widget_key      = makeKey(1, 2);
-    widget_name = QString::number(widget_key);
-    m_main_widget->widget(index)->setObjectName(widget_name);
     m_index_of_widgets.insert(widget_key, index);
 
     // 1.3. Задачка на вывод названия времени года по месяцу
@@ -160,31 +167,6 @@ void Practice::initializeMap()
     // Сразу ставим на последний элемент
     m_part = widget_key/10;
     m_task = widget_key%10;
-
-    /* Алгоритм выбора виджета проверен. Заглушки больше не нужны
-    // Клепаем заглушки для проверки алгоритма
-    for(int i = 1; i <= MAX_PARTS; ++i)
-    {
-        for(int j = 1; j <= MAX_TASKS; j++)
-        {
-            int     current_index;
-            int     widget_key = makeKey(i, j);
-            QLabel *zaglushka = new QLabel(
-                        "Заглушка\nчасть: " +
-                        QString::number(i)  +
-                        "задание: "         +
-                        QString::number(j), this);
-            zaglushka->setObjectName(QString::number(widget_key));
-
-            current_index = m_main_widget->addWidget(zaglushka);
-            m_index_of_widgets.insert(widget_key, current_index);
-
-            qDebug() << " Element " << widget_key << "created! ";
-            qDebug() << "Map elements: key - "
-                     << m_index_of_widgets.lastKey()
-                     << " index - " << m_index_of_widgets[widget_key];
-        }
-    };*/
 }
 
 int Practice::makeKey()
@@ -214,7 +196,6 @@ void Practice::slot_changeWidget()
 
     qDebug() << Qt::endl << "Element " << key << " was called";
     qDebug() << "m_main_widget Current index is " << m_main_widget->currentIndex();
-    qDebug() << "m_main_widget Current widget name is " << m_main_widget->currentWidget()->objectName();
 }
 
 /* Повторяющийся код.

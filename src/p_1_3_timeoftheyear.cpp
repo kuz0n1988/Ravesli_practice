@@ -1,5 +1,5 @@
 #include "p_1_3_timeoftheyear.h"
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 //#include <QtWidgets>
 
@@ -36,9 +36,6 @@ const QStringList P_1_3_TimeOfTheYear::m_TOTY = {
 
 P_1_3_TimeOfTheYear::P_1_3_TimeOfTheYear(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("13");
-    qDebug() << "Object " << objectName() << " constructing...";
-
     QLabel   *lbl_title         = new QLabel    ("Введите номер месяца", this);
     QSpinBox *spb_number        = new QSpinBox  (this);
     // По-приколу сделаем доступный диапазон от -20 до 20, чтобы был повод выкинуть ошибку
@@ -46,12 +43,6 @@ P_1_3_TimeOfTheYear::P_1_3_TimeOfTheYear(QWidget *parent) : QWidget(parent)
               lbl_current_month = new QLabel    ("Тут будет отображаться название месяца",  this);
               lbl_current_TOTY  = new QLabel    ("Тут будет отображаться время года",       this);
     spb_number->setValue(0);
-/*    QLabel  *lbl_html_page  = new QLabel
-            ("<a href=\"https://ravesli.com/praktika-chast-1/\">"
-             "<div>Страница на Ravesli.com</div>"
-             "<div>Часть №1: Практические задания по С++</div></a>");
-             lbl_html_page->setOpenExternalLinks(true);*/
-
     connect(spb_number, SIGNAL(valueChanged(int)), SLOT(slot_whatMonth(int)));
     connect(spb_number, SIGNAL(valueChanged(int)), SLOT(slot_whatTimeOfTheYear(int)));
 
@@ -61,7 +52,7 @@ P_1_3_TimeOfTheYear::P_1_3_TimeOfTheYear(QWidget *parent) : QWidget(parent)
     layout_main->addWidget(lbl_current_month);
     layout_main->addWidget(lbl_current_TOTY, 5, Qt::AlignTop);
 //    layout_main->addWidget(lbl_html_page, 0, Qt::AlignBottom);
-    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 0, Qt::AlignBottom);
+//    layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 0, Qt::AlignBottom);
 }
 
 void P_1_3_TimeOfTheYear::slot_whatMonth(int number)

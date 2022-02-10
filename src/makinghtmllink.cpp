@@ -1,5 +1,6 @@
 #include "makinghtmllink.h"
 
+#include <QWidget>
 #include <QObject>
 #include <QString>
 #include <QLabel>
@@ -11,6 +12,46 @@ const QString MakingHtmlLink::m_pattern_html = "<a href=\"%1\">"
                                                "<div>Страница на Ravesli.com</div>"
                                                "<div>%2</div></a>";
 
+MakingHtmlLink::MakingHtmlLink(const int &index, QWidget *parent) : QLabel(getMyHtmlLink(index), parent)
+{
+    setOpenExternalLinks(true);
+    setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
+}
+
+MakingHtmlLink::MakingHtmlLink(QWidget *parent) : QLabel(getMyHtmlLink(0), parent){}
+
+QString MakingHtmlLink::MakingHtmlLink::getMyHtmlLink(const int &index)
+{
+    if(index > 0 && index < 25)
+    {
+        // Подозреваю, это затратная операция
+        // Лучше сделать её один раз, а не три
+        QString number = QString::number(index);
+
+        return ( m_pattern_html.arg
+                 (m_pattern_link.arg(number),
+                  m_pattern_name.arg(number)));
+    }
+    // Если вышли за границы диапазона, пусть формирует
+    // нейтральную ссылку на общую страницу (без ошибки)
+    else
+    {
+        return ( m_pattern_html.arg
+                 ("https://ravesli.com/category/zadaniya-po-s/",
+                  "Практические задания по С++"));
+    }
+}
+
+void MakingHtmlLink::slotChangeHtmlLink(const int &index)
+{
+    setText(getMyHtmlLink(index));
+}
+
+
+/* ==============================================================
+ * ========== А ВОТ ТАК УЖАСНО БЫЛО РЕАЛИЗОВАНО РАНЬШЕ ==========
+ * ==============================================================
+ *
 QString MakingHtmlLink::getMyHtmlLink(QWidget *obj)
 {
     qDebug() << "Making HTML-link for " << obj->objectName();
@@ -48,3 +89,4 @@ QLabel* MakingHtmlLink::getMyHtmlLabel(QWidget *obj)
 
     return tmp;
 }
+*/

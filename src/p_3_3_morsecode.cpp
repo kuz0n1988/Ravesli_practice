@@ -17,7 +17,7 @@
 
 #include <QDebug>
 
-#include "makinghtmllink.h"
+//#include "makinghtmllink.h"
 
 /* ======== НЕМНОГО О МАГИИ КЛАССА QValidator ========
  * Очень хочтелось опробовать, как работает валидатор в Qt
@@ -25,7 +25,7 @@
  * умею в регулярные выражения), периодические возгласы
  * "почему же ты, сука, не хочешь работать" и о чудо -
  * ОНО РАБОТАЕТ!!! Причём именно так, как я хотел!
- * К сожалению, я не совсем понимаю КАК оно работает!
+ * К сожалению, я не совсем понимаю КАК? но оно работает!
  * */
 
 class StringValidator : public QValidator
@@ -70,8 +70,6 @@ const std::array<std::string, 36> P_3_3_MorseCode::M_ABC_MORSE =
 
 P_3_3_MorseCode::P_3_3_MorseCode(QWidget *parent) : QWidget(parent)
 {
-    setObjectName("33");
-
     QLabel      *lbl_title  = new QLabel("Введите текст:", this);
     QLineEdit   *led_input  = new QLineEdit(this);
 
@@ -95,7 +93,6 @@ P_3_3_MorseCode::P_3_3_MorseCode(QWidget *parent) : QWidget(parent)
                  layout_main->addWidget(led_input);
                  layout_main->addWidget(m_morse, 5, Qt::AlignTop);
                  layout_main->addWidget(pbt_beep);
-                 layout_main->addWidget(MakingHtmlLink::getMyHtmlLabel(this), 1, Qt::AlignBottom);
 }
 
 std::string P_3_3_MorseCode::getMorseCode(const std::wstring &source)
@@ -248,12 +245,6 @@ void P_3_3_MorseCode::slotConvertToMorse(const QString& source)
     // После преобразуем морзянку из std::string в QString
     QString      q_morse = QString::fromStdString(s_morse);
 
-    /* Этот алгоритм больше не нужен, поскольку я решил
-     * добавлять после каждой буквы символ пробела
-    for(int i = 10; i < q_morse.size(); i = i + 10)
-        q_morse.insert(i, '\n');
-    */
-
     // И только потом пихаем всё это счастье в поле для вывода
     m_morse->setPlainText(q_morse);
 }
@@ -272,9 +263,5 @@ void P_3_3_MorseCode::slotBeepTheMorse()
             Beep(1000, 500);
         else if(the_code[i] == beep_short)
             Beep(1000, 200);
-        /* После добавления валидатора эта хрень больше не нужна
-        else if(the_code[i] != ' ')
-            Beep(300, 5000);
-            */
     }
 }
