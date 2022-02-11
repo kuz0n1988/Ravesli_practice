@@ -24,6 +24,7 @@ SOURCES += \
     p_4_1_versta.cpp \
     p_4_2_averageofdoublearray.cpp \
     p_4_3_arrayconcatenator.cpp \
+    p_5_1_minutestohours.cpp \
     practice.cpp
 
 HEADERS += \
@@ -41,6 +42,7 @@ HEADERS += \
     p_4_1_versta.h \
     p_4_2_averageofdoublearray.h \
     p_4_3_arrayconcatenator.h \
+    p_5_1_minutestohours.h \
     practice.h
 
 # Default rules for deployment.

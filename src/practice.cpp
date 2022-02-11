@@ -26,6 +26,8 @@
 #include "p_4_2_averageofdoublearray.h" // Среднее значение элементов ряда чисел
 #include "p_4_3_arrayconcatenator.h"    // Соединитель сортированных массивов
 
+#include "p_5_1_minutestohours.h"       // Перевод минут в часы и минуты
+
 
 Practice::Practice(QWidget *parent)
     : QWidget(parent)
@@ -162,6 +164,13 @@ void Practice::initializeMap()
     // 4.3  Соединяет два упорядоченных массива в один
     index   = m_main_widget->addWidget(new P_4_3_ArrayConcatenator (this));
     widget_key      = makeKey(4, 3);
+    m_index_of_widgets.insert(widget_key, index);
+
+    // ==============================ЧАСТЬ 4==============================
+
+    // 5.1. Получаем ввод в минутах и переводим его в часы и минуты
+    index   = m_main_widget->addWidget(new P_5_1_MinutesToHours (this));
+    widget_key      = makeKey(5, 1);
     m_index_of_widgets.insert(widget_key, index);
 
     // Сразу ставим на последний элемент
