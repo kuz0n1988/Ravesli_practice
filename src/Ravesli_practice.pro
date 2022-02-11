@@ -25,6 +25,7 @@ SOURCES += \
     p_4_2_averageofdoublearray.cpp \
     p_4_3_arrayconcatenator.cpp \
     p_5_1_minutestohours.cpp \
+    p_5_2_pricetable.cpp \
     practice.cpp
 
 HEADERS += \
@@ -43,6 +44,7 @@ HEADERS += \
     p_4_2_averageofdoublearray.h \
     p_4_3_arrayconcatenator.h \
     p_5_1_minutestohours.h \
+    p_5_2_pricetable.h \
     practice.h
 
 # Default rules for deployment.

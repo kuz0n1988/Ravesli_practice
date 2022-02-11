@@ -27,6 +27,7 @@
 #include "p_4_3_arrayconcatenator.h"    // Соединитель сортированных массивов
 
 #include "p_5_1_minutestohours.h"       // Перевод минут в часы и минуты
+#include "p_5_2_pricetable.h"           // Таблица с ценами на яблоки
 
 
 Practice::Practice(QWidget *parent)
@@ -171,6 +172,11 @@ void Practice::initializeMap()
     // 5.1. Получаем ввод в минутах и переводим его в часы и минуты
     index   = m_main_widget->addWidget(new P_5_1_MinutesToHours (this));
     widget_key      = makeKey(5, 1);
+    m_index_of_widgets.insert(widget_key, index);
+
+    // 5.2. Получаем ввод в минутах и переводим его в часы и минуты
+    index   = m_main_widget->addWidget(new P_5_2_PriceTable (this));
+    widget_key      = makeKey(5, 2);
     m_index_of_widgets.insert(widget_key, index);
 
     // Сразу ставим на последний элемент
