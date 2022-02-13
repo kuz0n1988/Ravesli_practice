@@ -26,6 +26,7 @@ SOURCES += \
     p_4_3_arrayconcatenator.cpp \
     p_5_1_minutestohours.cpp \
     p_5_2_pricetable.cpp \
+    p_5_3_timersignal.cpp \
     practice.cpp
 
 HEADERS += \
@@ -45,6 +46,7 @@ HEADERS += \
     p_4_3_arrayconcatenator.h \
     p_5_1_minutestohours.h \
     p_5_2_pricetable.h \
+    p_5_3_timersignal.h \
     practice.h
 
 # Default rules for deployment.

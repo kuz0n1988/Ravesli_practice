@@ -28,6 +28,7 @@
 
 #include "p_5_1_minutestohours.h"       // Перевод минут в часы и минуты
 #include "p_5_2_pricetable.h"           // Таблица с ценами на яблоки
+#include "p_5_3_timersignal.h"          // Таймер включающий сигнал
 
 
 Practice::Practice(QWidget *parent)
@@ -177,6 +178,11 @@ void Practice::initializeMap()
     // 5.2. Получаем ввод в минутах и переводим его в часы и минуты
     index   = m_main_widget->addWidget(new P_5_2_PriceTable (this));
     widget_key      = makeKey(5, 2);
+    m_index_of_widgets.insert(widget_key, index);
+
+    // 5.3. Таймер, который выставляет пользователь.
+    index   = m_main_widget->addWidget(new P_5_3_TimerSignal (this));
+    widget_key      = makeKey(5, 3);
     m_index_of_widgets.insert(widget_key, index);
 
     // Сразу ставим на последний элемент
