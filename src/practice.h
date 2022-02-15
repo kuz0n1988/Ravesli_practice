@@ -2,10 +2,10 @@
 #define PRACTICE_H
 
 #include <QWidget>
-#include <QMap>
+//#include <QMap>
 
 class QStackedWidget;
-class QLabel;
+class QComboBox;
 
 class Practice : public QWidget
 {
@@ -13,14 +13,16 @@ class Practice : public QWidget
 
 private:
 // ========== КОНСТАНТЫ ===========
-    const int MAX_PARTS = 24;   // - количество частей на ravesli.com
+    const int MAX_PARTS = 5;   // - количество частей на ravesli.com
     const int MAX_TASKS = 3;    // - количество задач в каждой части
 
 // ========== ПЕРЕМЕННЫЕ ==========
-    QMap<int, int>       m_index_of_widgets;
+//    QMap<int, int>       m_index_of_widgets;
     QStackedWidget      *m_main_widget;
-    int                  m_part = 1;
-    int                  m_task = 1;
+//    int                  m_part = 1;
+//    int                  m_task = 1;
+    QComboBox           *m_cmb_select_part;
+    QComboBox           *m_cmb_select_task;
 
 public:
 // ========== КОНСТРУКТОРЫ ========

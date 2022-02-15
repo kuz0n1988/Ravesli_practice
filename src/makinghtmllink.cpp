@@ -44,7 +44,7 @@ QString MakingHtmlLink::MakingHtmlLink::getMyHtmlLink(const int &index)
 
 void MakingHtmlLink::slotChangeHtmlLink(const int &index)
 {
-    setText(getMyHtmlLink(index));
+    setText(getMyHtmlLink(index+1));
 }
 
 
