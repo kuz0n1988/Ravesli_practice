@@ -42,21 +42,19 @@ Practice::Practice(QWidget *parent)
     m_main_widget->setFrameStyle(QFrame::Box | QFrame::Raised);
     m_main_widget->setLineWidth(2);
 
-    initializeMap();        // Инициализируем m_main_widget и m_index_of_widget
+    MakingHtmlLink *lbl_html_link    = new MakingHtmlLink(0, this); // создаём ссылку
 
-    MakingHtmlLink *lbl_html_link    = new MakingHtmlLink(m_cmb_select_part->currentIndex(), this); //...и создаём ссылку
+    initialize();               // Инициализируем m_main_widget
 
     // Правая половина
     // ===Блок выбора части
     QLabel      *lbl_select_part    = new QLabel("Выберите &часть:", this);
-                 m_cmb_select_part    = new QComboBox(this);
+                 m_cmb_select_part  = new QComboBox(this);
     lbl_select_part->setBuddy(m_cmb_select_part); // не работает с английской раскладкой
 
-    for(int i = 1; i <= MAX_PARTS; i++)
+    for(int i = 1; i < (1+m_main_widget->count()/3); i++)   // чтобы не делать ручками
         m_cmb_select_part->addItem("Часть №" + QString::number(i));
-    m_cmb_select_part->setCurrentIndex(m_cmb_select_part->count()-1);
 
-    connect(m_cmb_select_part, SIGNAL(currentIndexChanged(int)), SLOT(slot_changePart(int)));
     connect(m_cmb_select_part, SIGNAL(currentIndexChanged(int)), SLOT(slot_changeWidget()));
     connect(m_cmb_select_part, SIGNAL(currentIndexChanged(int)),
             lbl_html_link,   SLOT(slotChangeHtmlLink(int)));
@@ -76,8 +74,6 @@ Practice::Practice(QWidget *parent)
     m_cmb_select_task->addItem("Задание #1 - EASY");
     m_cmb_select_task->addItem("Задание #2 - MEDIUM");
     m_cmb_select_task->addItem("Задание #3 - HARD");
-    m_cmb_select_task->setCurrentIndex(m_cmb_select_task->count()-1-1);
-    connect(m_cmb_select_task, SIGNAL(currentIndexChanged(int)), SLOT(slot_changeTask(int)));
     connect(m_cmb_select_task, SIGNAL(currentIndexChanged(int)), SLOT(slot_changeWidget()));
 
     // Компоновка
@@ -98,108 +94,70 @@ Practice::Practice(QWidget *parent)
     box_main->addLayout(left_layout, 1);
     box_main->addLayout(right_layout, 0);
 
-    slot_changeWidget();    // Сразу ставим последний виджет...
+    // Поскольку переменных посредников у нас больше нет
+    // выставляем значения ручками
+    m_cmb_select_part->setCurrentIndex(m_cmb_select_part->count()-1);
+    m_cmb_select_task->setCurrentIndex(((m_main_widget->count()-1)%3));
+
+    /* Эта строчка больше не нужна, т.к. ComboBox-ы напрямую связаны
+     * с этим слотом, а их значения мы меняем двумя строчками сверху
+    slot_changeWidget();
+    */
 }
 
 Practice::~Practice(){}
 
 // ============================== МЕТОДЫ =============================
 
-void Practice::initializeMap()
+void Practice::initialize()
 {
-    // Добавляем по-порядку задачки в виджет и в карту ключей
-
-    // Набор переменных (уже не совсем избыточный) для добавления виджетов
-    int      index;
-//    int      widget_key;
-
     // ==============================ЧАСТЬ 1==============================
 
     // 1.1. Задачка про сэндвич с мороженным
-    index   = m_main_widget->addWidget(new P_1_1_Sandwich(this));
-//    widget_key      = makeKey(1, 1);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_1_1_Sandwich(this));
     // 1.2. Задачка на поиск минимального числа
-    index   = m_main_widget->addWidget(new P_1_2_MinNumber(this));
-//    widget_key      = makeKey(1, 2);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_1_2_MinNumber(this));
     // 1.3. Задачка на вывод названия времени года по месяцу
-    index   = m_main_widget->addWidget(new P_1_3_TimeOfTheYear(this));
-//    widget_key      = makeKey(1, 3);
-    //m_index_of_widgets.insert(widget_key, index);
+    m_main_widget->addWidget(new P_1_3_TimeOfTheYear(this));
 
     // ==============================ЧАСТЬ 2==============================
 
     // 2.1. Расчёт стоимости поездки на дачу
-    index   = m_main_widget->addWidget(new P_2_1_dacha(this));
-//    widget_key      = makeKey(2, 1);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_2_1_dacha(this));
     // 2.2. Расчёт размера скидки
-    index   = m_main_widget->addWidget(new P_2_2_Discount (this));
-//    widget_key      = makeKey(2, 2);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_2_2_Discount (this));
     // 2.3. Игра "угадай трёхзначное положительное число"
-    index   = m_main_widget->addWidget(new P_2_3_GuessTheNumber (this));
- //   widget_key      = makeKey(2, 3);
-    //m_index_of_widgets.insert(widget_key, index);
+    m_main_widget->addWidget(new P_2_3_GuessTheNumber (this));
 
     // ==============================ЧАСТЬ 3==============================
 
     // 3.1. Расчёт скорости бега
-    index   = m_main_widget->addWidget(new P_3_1_SpeedRunner(this));
- //   widget_key      = makeKey(3, 1);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_3_1_SpeedRunner(this));
     // 3.2. Сумма положительных чётных чисел
-    index   = m_main_widget->addWidget(new P_3_2_PositiveEvenIntSum (this));
-//    widget_key      = makeKey(3, 2);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_3_2_PositiveEvenIntSum (this));
     // 3.3. Преобразователь русского языка в азбуку Морзе
-    index   = m_main_widget->addWidget(new P_3_3_MorseCode (this));
-//    widget_key      = makeKey(3, 3);
-    //m_index_of_widgets.insert(widget_key, index);
+    m_main_widget->addWidget(new P_3_3_MorseCode (this));
 
     // ==============================ЧАСТЬ 4==============================
 
     // 4.1. Конвертирует километры в вёрсты
-    index   = m_main_widget->addWidget(new P_4_1_versta(this));
-//    widget_key      = makeKey(4, 1);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_4_1_versta(this));
     // 4.2. Рассчитывает среднее арифметическое значение элементов массива
-    index   = m_main_widget->addWidget(new P_4_2_AverageOfDoubleArray (this));
-//    widget_key      = makeKey(4, 2);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_4_2_AverageOfDoubleArray (this));
     // 4.3  Соединяет два упорядоченных массива в один
-    index   = m_main_widget->addWidget(new P_4_3_ArrayConcatenator (this));
-//    widget_key      = makeKey(4, 3);
-    //m_index_of_widgets.insert(widget_key, index);
+    m_main_widget->addWidget(new P_4_3_ArrayConcatenator (this));
 
     // ==============================ЧАСТЬ 5==============================
 
     // 5.1. Получаем ввод в минутах и переводим его в часы и минуты
-    index   = m_main_widget->addWidget(new P_5_1_MinutesToHours (this));
-//    widget_key      = makeKey(5, 1);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_5_1_MinutesToHours (this));
     // 5.2. Получаем ввод в минутах и переводим его в часы и минуты
-    index   = m_main_widget->addWidget(new P_5_2_PriceTable (this));
-//    widget_key      = makeKey(5, 2);
-    //m_index_of_widgets.insert(widget_key, index);
-
+    m_main_widget->addWidget(new P_5_2_PriceTable (this));
     // 5.3. Таймер, который выставляет пользователь.
-    index   = m_main_widget->addWidget(new P_5_3_TimerSignal (this));
-//    widget_key      = makeKey(5, 3);
-    //m_index_of_widgets.insert(widget_key, index);
-
-    m_main_widget->setCurrentIndex(index);
+    m_main_widget->addWidget(new P_5_3_TimerSignal (this));
 }
+
+// ============================== МЕТОДЫ ==============================
 
 int Practice::makeKey()
 {
@@ -209,51 +167,10 @@ int Practice::makeKey()
      * на три и прибавлять текущий индекс задания
      * MAP больше не нужна!!!
      * */
-    qDebug() << m_cmb_select_part->currentIndex()*3;
-    qDebug() << m_cmb_select_task->currentIndex();
     return ((m_cmb_select_part->currentIndex()*3)+(m_cmb_select_task->currentIndex()));
-
-//    return makeKey(m_part, m_task);
 }
-/*
-int Practice::makeKey(int part, int task)
-{
-    if(part >= 1 && part <= MAX_PARTS &&
-       task >= 1 && task <= MAX_TASKS)
-
-        return m_cmb_select_part->currentIndex()*3+m_cmb_select_task->currentIndex();
-
-    else
-        return -1;
-}*/
 
 // ============================== СЛОТЫ ==============================
 
 void Practice::slot_changeWidget()
-{    
-    int key = makeKey();
-    //m_main_widget->setCurrentIndex(m_index_of_widgets[key]);
-    m_main_widget->setCurrentIndex(key);
-
-    qDebug() << "Tracing";
-//    qDebug() << "m_part:   " << m_part;
-//    qDebug() << "m_task:   " << m_task;
-    qDebug() << "key:      " << key;
-//    qDebug() << "map[" << key << "]: " << m_index_of_widgets[key];
-
-    qDebug() << Qt::endl << "Element " << key << " was called";
-    qDebug() << "m_main_widget Current index is " << m_main_widget->currentIndex();
-}
-
-/* Повторяющийся код.
- * Работать то он будет, но надо подумать, как сократить.
- * */
-void Practice::slot_changePart(int i)
-{
-    //m_part = i +1;
-}
-
-void Practice::slot_changeTask(int i)
-{
-    //m_task = i +1;
-}
+{ m_main_widget->setCurrentIndex(makeKey()); }
