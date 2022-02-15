@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QTimer>
 
-
 class P_5_3_TimerSignal : public QWidget
 {
     Q_OBJECT
