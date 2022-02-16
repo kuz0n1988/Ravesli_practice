@@ -27,6 +27,7 @@ SOURCES += \
     p_5_1_minutestohours.cpp \
     p_5_2_pricetable.cpp \
     p_5_3_timersignal.cpp \
+    p_6_1_2numbers1compare.cpp \
     practice.cpp
 
 HEADERS += \
@@ -47,6 +48,7 @@ HEADERS += \
     p_5_1_minutestohours.h \
     p_5_2_pricetable.h \
     p_5_3_timersignal.h \
+    p_6_1_2numbers1compare.h \
     practice.h
 
 # Default rules for deployment.

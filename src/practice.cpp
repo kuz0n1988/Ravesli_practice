@@ -29,6 +29,8 @@
 #include "p_5_2_pricetable.h"           // Таблица с ценами на яблоки
 #include "p_5_3_timersignal.h"          // Таймер включающий сигнал
 
+#include "p_6_1_2numbers1compare.h"     // Сравнивает два числа
+
 
 Practice::Practice(QWidget *parent)
     : QWidget(parent)
@@ -52,8 +54,8 @@ Practice::Practice(QWidget *parent)
                  m_cmb_select_part  = new QComboBox(this);
     lbl_select_part->setBuddy(m_cmb_select_part); // не работает с английской раскладкой
 
-    for(int i = 1; i < (1+m_main_widget->count()/3); i++)   // чтобы не делать ручками
-        m_cmb_select_part->addItem("Часть №" + QString::number(i));
+    for(int i = 0; i < (1+((m_main_widget->count())-1)/3); i++)   // чтобы не делать ручками
+        m_cmb_select_part->addItem("Часть №" + QString::number(i+1));
 
     connect(m_cmb_select_part, SIGNAL(currentIndexChanged(int)), SLOT(slot_changeWidget()));
     connect(m_cmb_select_part, SIGNAL(currentIndexChanged(int)),
@@ -155,6 +157,11 @@ void Practice::initialize()
     m_main_widget->addWidget(new P_5_2_PriceTable (this));
     // 5.3. Таймер, который выставляет пользователь.
     m_main_widget->addWidget(new P_5_3_TimerSignal (this));
+
+    // ==============================ЧАСТЬ 6==============================
+
+    // 6.1. Сравниваем два числа, которые вводит пользователь
+    m_main_widget->addWidget(new P_6_1_2Numbers1Compare (this));
 }
 
 // ============================== МЕТОДЫ ==============================

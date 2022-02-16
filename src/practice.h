@@ -29,7 +29,6 @@ private:
 // ========== МЕТОДЫ ==============
     void initialize();
     int makeKey();
-    int makeKey(int part, int task);
 
 private slots:
 // ========== СЛОТЫ ===============
